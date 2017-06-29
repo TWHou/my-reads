@@ -22,6 +22,16 @@ class BooksApp extends React.Component {
     })
   }
   
+  updateBook(book, shelf) {
+    let currentBooks = this.state.books
+    for (let i in currentBooks) {
+      if (currentBooks[i].id === book.id) {
+          currentBooks[i].shelf = shelf
+          break
+      }
+    }
+    this.setState({books: currentBooks})
+  }
 
   render() {
     const currentlyReading = this.state.books.filter(
@@ -35,7 +45,7 @@ class BooksApp extends React.Component {
     )
     return (
       <div className="app">
-        <Route exact path="/" render={() => (
+        <Route exact path="/" render={({ history }) => (
           <div className="list-books">
             <div className="list-books-title">
               <h1>MyReads</h1>
@@ -48,7 +58,9 @@ class BooksApp extends React.Component {
                     <ol className="books-grid">
                       {currentlyReading.map(book => (
                         <li key={book.id}>
-                          <Book book={book} />
+                          <Book book={book} onSaveBook={(book, shelf)=>{
+                            this.updateBook(book, shelf)
+                          }} />
                         </li>
                       ))}
                     </ol>
@@ -60,7 +72,9 @@ class BooksApp extends React.Component {
                     <ol className="books-grid">
                       {wantToRead.map(book => (
                         <li key={book.id}>
-                          <Book book={book} />
+                          <Book book={book} onSaveBook={(book, shelf)=>{
+                            this.updateBook(book, shelf)
+                          }} />
                         </li>
                       ))}
                     </ol>
@@ -72,7 +86,9 @@ class BooksApp extends React.Component {
                     <ol className="books-grid">
                       {read.map(book => (
                         <li key={book.id}>
-                          <Book book={book} />
+                          <Book book={book} onSaveBook={(book, shelf)=>{
+                            this.updateBook(book, shelf)
+                          }} />
                         </li>
                       ))}
                     </ol>
