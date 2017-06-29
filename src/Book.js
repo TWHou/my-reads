@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import * as BooksAPI from './BooksAPI';
+import { update } from './BooksAPI';
 
 class Book extends Component {
   handleSelect = event => {
     const selectedShelf = event.target.value
-    BooksAPI.update(this.props.book, selectedShelf).then(result => {
+    update(this.props.book, selectedShelf).then(result => {
       if (this.props.onSaveBook){
         this.props.onSaveBook(this.props.book, selectedShelf)
       }
@@ -23,7 +23,7 @@ class Book extends Component {
               <option value="currentlyReading">Currently Reading</option>
               <option value="wantToRead">Want to Read</option>
               <option value="read">Read</option>
-              <option value="none">Remove</option>
+              <option value="none">None</option>
             </select>
           </div>
         </div>
