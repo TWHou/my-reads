@@ -1,6 +1,6 @@
 import React from 'react'
 import { Route, Link } from 'react-router-dom'
-import Book from './Book'
+import Shelf from './Shelf'
 import Search from './Search'
 import { getAll } from './BooksAPI'
 import './App.css'
@@ -56,48 +56,27 @@ class BooksApp extends React.Component {
             </div>
             <div className="list-books-content">
               <div>
-                <div className="bookshelf">
-                  <h2 className="bookshelf-title">Currently Reading</h2>
-                  <div className="bookshelf-books">
-                    <ol className="books-grid">
-                      {currentlyReading.map(book => (
-                        <li key={book.id}>
-                          <Book book={book} onSaveBook={(book, shelf)=>{
-                            this.updateBook(book, shelf)
-                          }} />
-                        </li>
-                      ))}
-                    </ol>
-                  </div>
-                </div>
-                <div className="bookshelf">
-                  <h2 className="bookshelf-title">Want to Read</h2>
-                  <div className="bookshelf-books">
-                    <ol className="books-grid">
-                      {wantToRead.map(book => (
-                        <li key={book.id}>
-                          <Book book={book} onSaveBook={(book, shelf)=>{
-                            this.updateBook(book, shelf)
-                          }} />
-                        </li>
-                      ))}
-                    </ol>
-                  </div>
-                </div>
-                <div className="bookshelf">
-                  <h2 className="bookshelf-title">Read</h2>
-                  <div className="bookshelf-books">
-                    <ol className="books-grid">
-                      {read.map(book => (
-                        <li key={book.id}>
-                          <Book book={book} onSaveBook={(book, shelf)=>{
-                            this.updateBook(book, shelf)
-                          }} />
-                        </li>
-                      ))}
-                    </ol>
-                  </div>
-                </div>
+                <Shelf 
+                  title="Currently Reading" 
+                  books={currentlyReading} 
+                  onUpdate={(book, shelf)=>{
+                    this.updateBook(book, shelf)
+                  }}
+                />
+                <Shelf 
+                  title="Want to Read" 
+                  books={wantToRead} 
+                  onUpdate={(book, shelf)=>{
+                    this.updateBook(book, shelf)
+                  }}
+                />
+                <Shelf 
+                  title="Read" 
+                  books={read} 
+                  onUpdate={(book, shelf)=>{
+                    this.updateBook(book, shelf)
+                  }}
+                />
               </div>
             </div>
             <div className="open-search">
