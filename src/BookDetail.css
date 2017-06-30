@@ -1,0 +1,6 @@
+.f-col {
+  display: flex;
+  flex-direction: column;
+  padding: 30px;
+  align-items: center;
+}

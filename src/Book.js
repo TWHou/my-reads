@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import { update } from './BooksAPI';
 
 class Book extends Component {
@@ -27,7 +28,11 @@ class Book extends Component {
             </select>
           </div>
         </div>
-        <div className="book-title">{book.title}</div>
+        <div className="book-title">
+          <Link to={`/${book.id}`}>
+            {book.title}
+          </Link>
+        </div>
         <div className="book-authors">{book.authors[0]}</div>
       </div>
     );
