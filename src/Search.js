@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { debounce } from 'throttle-debounce';
 import { search } from './BooksAPI';
 import Book from './Book';
 
@@ -9,15 +10,28 @@ class Search extends Component {
     books: []
   }
   
-  updateQuery= query => {
+  
+  componentWillMount() {
+    this.searchBooks = debounce(500, this.searchBooks);
+  }
+  
+  updateQuery = query => {
     if (query) {
-      this.setState({query: query.trim()})
-      search(query, 10).then(books => {
-        this.setState({ books })
-      })
+      this.setState({query: query})
+      this.searchBooks(query)
     } else {
-      this.setState({books: []})
+      this.setState({books: [], query: ''})
     }
+  }
+
+  searchBooks = query => {
+    search(query, 10).then(books => {
+      if(books.error) {
+        this.setState({books: []})
+      } else {
+        this.setState({ books })
+      }
+    })
   }
 
   updateBook = (book) => {
